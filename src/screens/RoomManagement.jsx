@@ -18,7 +18,11 @@ const RoomManagement = () => {
     const storeToken = localStorage.getItem('token')  
     if (storedUser && storeToken ) {
       const user = JSON.parse(storedUser);
+      console.log(user,'this is user');
+      
       setEmail(user.email); 
+      console.log(email, 'email');
+      
     }
     else{
       navigate('/login');
@@ -29,7 +33,7 @@ const RoomManagement = () => {
   const fetchRooms = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5550/api/rooms', {
+      const response = await fetch('https://webrtc-server-7vrh.onrender.com/api/rooms', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,7 +51,7 @@ const RoomManagement = () => {
   
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5550/api/rooms', {
+      const response = await fetch('https://webrtc-server-7vrh.onrender.com/api/rooms', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,6 +81,7 @@ const RoomManagement = () => {
   const joinRoomFromList = (roomTitle) => {
     if (email) {
       socket.emit('room:join', { email, room: roomTitle });
+      handleJoinRoom({ room: roomTitle }); // Pass roomTitle as part of an object
     } else {
       setError('Email is required to join a room');
     }

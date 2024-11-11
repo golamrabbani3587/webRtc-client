@@ -13,8 +13,8 @@ const Auth = ({ type }) => {
     setError('');
   
     const apiUrl = type === 'login'
-      ? 'http://localhost:5550/api/auth/login'
-      : 'http://localhost:5550/api/auth/signup';
+      ? 'https://webrtc-server-7vrh.onrender.com/api/auth/login'
+      : 'https://webrtc-server-7vrh.onrender.com/api/auth/signup';
   
     try {
       const response = await fetch(apiUrl, {
